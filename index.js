@@ -121,6 +121,6 @@ mongoose.connect(DB).then(() => {
     console.log(e);
 });
 
-server.listen(port, '0.0.0.0', () => {
+server.listen(port, "0.0.0.0", () => {
     console.log('Server started and running on port ' + port);
 });
