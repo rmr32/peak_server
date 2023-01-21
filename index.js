@@ -44,9 +44,7 @@ const DB = "mongodb+srv://rmr32:32@cluster0.7g6dgqm.mongodb.net/?retryWrites=tru
 io.on("connection", (socket) => {
     console.log("connected!");
     socket.on("createRoom", async ({ nickname }) => {
-      console.log(nickname);
-      console.log(socketID);
-      console.log(socket.id);
+
       try {
         // room is created
         let room = new Room();
