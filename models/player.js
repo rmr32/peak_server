@@ -6,7 +6,7 @@ const playerSchema = new mongoose.Schema({
         trim: true,
     },
     socketID: {
-type: String,
+        type: String,
     },
     points: {
         type: Number,

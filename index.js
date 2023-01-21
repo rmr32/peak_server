@@ -16,10 +16,8 @@ app.use(express.json());
 const DB = "mongodb+srv://rmr32:32@cluster0.7g6dgqm.mongodb.net/?retryWrites=true&w=majority";
 
 io.on("connection", (socket) => {
-    console.log("Connected!");
+    console.log("connected!");
     socket.on("createRoom", async ({ nickname }) => {
-        console.log(nickname);
-
         try{
             let room = new Room();
             let player = {
@@ -30,7 +28,6 @@ io.on("connection", (socket) => {
         room.players.push(player);
         room.turn = player;
         room = await room.save();
-        console.log(room);
         const roomID = room._id.toString();
         socket.join(roomID);
 
@@ -38,7 +35,10 @@ io.on("connection", (socket) => {
         } catch(e) {
             console.log(e);
         }
-
+console.log('socketid');
+console.log(socket.ID);
+console.log(socketID);
+console.log(socket._id);
     });
 
     socket.on('joinRoom', async ({nickname, roomID}) => {
@@ -58,6 +58,7 @@ io.on("connection", (socket) => {
                 room.players.push(player);
                 room.isJoin = false;
                 room = await room.save();
+                console.log(room);
                 io.to(roomID).emit("joinRoomSuccess", room);
                 io.to(roomID).emit("updatePlayers", room.players);
                 io.to(roomID).emit('updateRoom', room);
@@ -71,6 +72,7 @@ io.on("connection", (socket) => {
 
     // For Game
     socket.on('tap', async ({index, roomID}) => {
+        console.log('testing tap');
         try{
             let room = await Room.findById(roomID);          
             let choice = room.turn.playerType;
